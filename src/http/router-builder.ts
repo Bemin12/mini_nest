@@ -3,6 +3,10 @@ import { PARAMS, PREFIX, ROUTES } from '../core/tokens.js';
 import type { RouteDef } from '../decorators/route.decorator.js';
 import { Container, Constructor } from '../core/container.js';
 import { ParamDef } from '../decorators/param.decorator.js';
+import {
+  ValidationError,
+  runValidationPipe,
+} from '../validation/run-validation.js';
 
 function resolveArgs(
   req: Request,
@@ -14,7 +18,9 @@ function resolveArgs(
   for (const def of paramDefs) {
     switch (def.source) {
       case 'body':
-        args[def.index] = req.body;
+        args[def.index] = def.dtoClass
+          ? runValidationPipe(def.dtoClass, req.body)
+          : req.body;
         break;
       case 'param':
         args[def.index] = req.params[def.name!];
@@ -52,8 +58,15 @@ export function buildRouter(
       if (paramDefs.length === 0) {
         return (instance as any)[handlerName](req, res);
       }
-      const args = resolveArgs(req, res, paramDefs);
-      return (instance as any)[handlerName](...args);
+      try {
+        const args = resolveArgs(req, res, paramDefs);
+        return (instance as any)[handlerName](...args);
+      } catch (err) {
+        if (err instanceof ValidationError) {
+          return res.status(400).json({ errors: err.errors });
+        }
+        throw err;
+      }
     });
   }
 

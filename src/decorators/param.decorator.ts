@@ -5,20 +5,20 @@ export interface ParamDef {
   index: number;
   source: ParamSource;
   name?: string;
+  dtoClass?: new () => any;
 }
 
 function createParamDecorator(source: ParamSource) {
-  return (name?: string): ParameterDecorator => {
+  return (nameOrDto?: string | (new () => any)): ParameterDecorator => {
     return (target, key, index) => {
       if (key === undefined) return;
       const existing: ParamDef[] =
         Reflect.getOwnMetadata(PARAMS, target, key) ?? [];
-      Reflect.defineMetadata(
-        PARAMS,
-        [...existing, { index, source, name }],
-        target,
-        key,
-      );
+      const def: ParamDef =
+        typeof nameOrDto === 'string'
+          ? { index, source, name: nameOrDto }
+          : { index, source, dtoClass: nameOrDto };
+      Reflect.defineMetadata(PARAMS, [...existing, def], target, key);
     };
   };
 }

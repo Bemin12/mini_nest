@@ -16,12 +16,7 @@ export class UserController {
   }
 
   @Post('/')
-  create(@Body() dto: SignupDto, @Res() res: Response) {
-    const errors = validate(Object.assign(new SignupDto(), dto));
-    console.log(errors);
-    if (errors.length > 0) {
-      return res.status(400).json({ errors });
-    }
+  create(@Body(SignupDto) dto: SignupDto, @Res() res: Response) {
     const user = this.userService.create({ name: dto.name, email: dto.email });
     res.status(201).json(user);
   }
