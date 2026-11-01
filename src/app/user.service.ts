@@ -9,7 +9,7 @@ export class UserService {
     return this.repo.findAll();
   }
 
-  create(user: { name: string; email: string }) {
+  create(user: { name: string; email: string; password: string; age: number }) {
     return this.repo.create(user);
   }
 }

@@ -17,7 +17,12 @@ export class UserController {
 
   @Post('/')
   create(@Body(SignupDto) dto: SignupDto, @Res() res: Response) {
-    const user = this.userService.create({ name: dto.name, email: dto.email });
-    res.status(201).json(user);
+    const user = this.userService.create({
+      name: dto.name,
+      email: dto.email,
+      password: dto.password,
+      age: dto.age,
+    });
+    res.status(201).json({ ...user, password: undefined });
   }
 }

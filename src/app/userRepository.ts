@@ -9,7 +9,7 @@ export class UserRepository {
     return this.db.findAll();
   }
 
-  create(user: { name: string; email: string }) {
+  create(user: { name: string; email: string; password: string; age: number }) {
     return this.db.insert(user);
   }
 }
