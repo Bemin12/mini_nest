@@ -29,6 +29,7 @@ function collectModule(
 
   const own = new Set(def.providers ?? []);
   const visible = new Set(own);
+  for (const Controller of def.controllers ?? []) visible.add(Controller);
 
   for (const importedModule of def.imports ?? []) {
     const nested = collectModule(importedModule, container, seen);
