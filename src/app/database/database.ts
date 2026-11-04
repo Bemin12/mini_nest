@@ -1,4 +1,4 @@
-import { Inject } from '../decorators/inject.decorator.js';
+import { Inject } from '../../decorators/inject.decorator.js';
 
 export class Database {
   private users = [

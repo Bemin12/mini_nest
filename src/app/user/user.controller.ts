@@ -1,10 +1,10 @@
 import type { Request, Response } from 'express';
-import { Controller } from '../decorators/controller.decorator.js';
+import { Controller } from '../../decorators/controller.decorator.js';
 import { UserService } from './user.service.js';
-import { Get, Post } from '../decorators/route.decorator.js';
-import { SignupDto } from './signup.dto.js';
-import { validate } from '../validation/validate.js';
-import { Body, Res } from '../decorators/param.decorator.js';
+import { Get, Post } from '../../decorators/route.decorator.js';
+import { SignupDto } from './dto/signup.dto.js';
+import { validate } from '../../validation/validate.js';
+import { Body, Res } from '../../decorators/param.decorator.js';
 
 @Controller('/users')
 export class UserController {
