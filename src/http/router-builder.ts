@@ -42,10 +42,11 @@ function resolveArgs(
 
 export function buildRouter(
   container: Container,
+  OwnerModule: Constructor,
   ControllerClass: Constructor,
 ): Router {
   const router = Router();
-  const instance = container.resolve(ControllerClass);
+  const instance = container.resolve(ControllerClass, OwnerModule);
 
   const prefix: string = Reflect.getMetadata(PREFIX, ControllerClass) ?? '';
   const routes: RouteDef[] = Reflect.getMetadata(ROUTES, ControllerClass) ?? [];
