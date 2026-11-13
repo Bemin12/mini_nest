@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { bootstrap } from './core/bootstrap.js';
-import { UserModule } from './app/user.module.js';
+import { UserModule } from './app/user/user.module.js';
 
 const app = bootstrap(UserModule, (container) => {
   container.provideValue('DB_URL', 'postgres://localhost/app');

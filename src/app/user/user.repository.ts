@@ -1,5 +1,5 @@
-import { Injectable } from '../decorators/injectable.decorator.js';
-import { Database } from './database.js';
+import { Injectable } from '../../decorators/injectable.decorator.js';
+import { Database } from '../database/database.js';
 
 @Injectable()
 export class UserRepository {

@@ -5,6 +5,7 @@ export interface ModuleDef {
   controllers?: Constructor[];
   providers?: Constructor[];
   imports?: Constructor[];
+  exports?: Constructor[];
 }
 
 export function Module(def: ModuleDef): ClassDecorator {

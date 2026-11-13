@@ -4,7 +4,7 @@ import {
   Min,
   MinLength,
   Required,
-} from '../decorators/validation.decorator.js';
+} from '../../../decorators/validation.decorator.js';
 
 export class SignupDto {
   @MinLength(1)

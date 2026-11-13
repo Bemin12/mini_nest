@@ -1,5 +1,5 @@
-import { Injectable } from '../decorators/injectable.decorator.js';
-import { UserRepository } from './userRepository.js';
+import { Injectable } from '../../decorators/injectable.decorator.js';
+import { UserRepository } from './user.repository.js';
 
 @Injectable()
 export class UserService {
