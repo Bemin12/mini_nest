@@ -59,8 +59,10 @@ restarts; no database connection is used.
   `@Delete`, `@Patch`) register routes.
 - `@Injectable` and `@Inject(token)` use a container for constructor
   dependency injection.
-- `@Module` and `bootstrap()` register providers and controllers, scoped
-  through a module's `providers`/`controllers`/`imports`.
+- `@Module` and `bootstrap()` register providers and controllers per module.
+  A provider is only visible within its own module unless the module lists
+  it in `exports`; an importing module gains access to exported providers
+  via `imports`, not to a module's full provider list.
 - Parameter decorators (`@Body`, `@Param`, `@Query`, `@Req`, `@Res`) provide
   handler arguments; `@Body(DtoClass)` runs the custom validation pipe before
   the handler executes.
@@ -70,5 +72,8 @@ restarts; no database connection is used.
 ## Not implemented
 
 Guards, interceptors, exception filters, request-scoped providers, and
-circular-module resolution. Some of these are planned as further learning
-exercises.
+circular-module resolution. Also, the instance cache is a single flat map
+shared by the whole app rather than one per module, so an unexported
+provider still resolves to the same shared instance everywhere instead of
+a separate instance per encapsulated module, as real Nest would do. Some
+of these are planned as further learning exercises.
